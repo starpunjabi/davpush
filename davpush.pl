@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright 2011 Peter Tillemans
+# Copyright 2023 Satnam Khanna
 
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -24,14 +24,14 @@ sub wanted() {
   if (-f $f) {
     $script .= "mput \"$f\"\n";
   } else {
-    $script .= "mkdir \"$f\"\n";
+    $script .= "mkcol \"$f\"\n";
   }
 }
 
 my $url = $ARGV[0];
 print "URL: $url\n";
 
-if ($url =~ m#dav://.*?(/\S*)#) {
+if ($url =~ m#https://.*?(/\S*)#) {
 
   $target_url = "$0";
   $target_dir = "$1";
@@ -45,7 +45,7 @@ if ($url =~ m#dav://.*?(/\S*)#) {
   close POUT;
 
 } else {
-  print "Usage: davpush.pl dav://<hostname>:<port>/<upload path>\n";
+  print "Usage: davpush.pl https://<hostname>:<port>/<upload path>\n";
   print "\n";
   print "Uploads all files and folders recursively to the WebDAV folder passed in the url.\n";
 }
